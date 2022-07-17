@@ -1,0 +1,3 @@
+publicKey = ""
+secretKey = ""
+passphrase = ""
