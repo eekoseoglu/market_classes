@@ -1,4 +1,5 @@
 from binance.client import Client
+from binance.enums import KLINE_INTERVAL_1HOUR
 
 from base_market.base_market import BaseMarket
 from . import credentials
@@ -22,3 +23,10 @@ class BinanceMarket(BaseMarket):
     def get_symbols_exchange_info(self):
         symbols = self.__client.get_exchange_info()["symbols"]
         return symbols
+
+    def get_last_500_1h_kline_data(self, coin_name):
+        full_name = coin_name + self._tetherName
+        start_time = self._get_time_500h_before_in_ms()
+        kliens = self.__client.get_historical_klines(symbol=full_name, interval=KLINE_INTERVAL_1HOUR, start_str= start_time)
+        kliens.reverse()
+        return kliens

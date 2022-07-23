@@ -23,3 +23,8 @@ class KucoinMarket(BaseMarket):
     def get_symbols_exchange_info(self):
         symbols = self.__client.get_symbols()
         return symbols
+
+    def get_last_500_1h_kline_data(self, coin_name):
+        full_name = coin_name + self._seperator + self._tetherName
+        start_time = int(self._get_time_500h_before_in_ms() / 1000)
+        return self.__client.get_kline_data(symbol=full_name, kline_type="1hour", start=start_time)
